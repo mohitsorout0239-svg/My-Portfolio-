@@ -1,0 +1,49 @@
+// Typing Animation
+const texts = [
+  "Electronics Engineer",
+  "Cloud Developer",
+  "AI Enthusiast",
+  "UI/UX Designer"
+];
+
+let index = 0;
+let charIndex = 0;
+let currentText = "";
+let isDeleting = false;
+
+function type() {
+  const typingElement = document.getElementById("typing");
+
+  if (index >= texts.length) index = 0;
+
+  currentText = texts[index];
+
+  if (!isDeleting) {
+    typingElement.textContent = currentText.substring(0, charIndex++);
+  } else {
+    typingElement.textContent = currentText.substring(0, charIndex--);
+  }
+
+  if (!isDeleting && charIndex === currentText.length) {
+    isDeleting = true;
+    setTimeout(type, 1000);
+    return;
+  }
+
+  if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    index++;
+  }
+
+  setTimeout(type, isDeleting ? 50 : 100);
+}
+
+type();
+
+// Hamburger Menu
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
